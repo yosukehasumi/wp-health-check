@@ -1,3 +1,21 @@
+
+<?php 
+  if(isset($_POST['recover']) && $_POST['recover'] != ""){
+    echo "reading data: ".$_POST['recover'];
+    $recoveredData = file_get_contents('archive/'.$_POST['recover']);
+    $recoveredArray = unserialize($recoveredData);
+    $_POST = $recoveredArray;
+
+  }elseif(isset($_POST['client']) && $_POST['client'] != ""){
+    echo "setting data: ". $_POST['client'].'-'.$_POST['project'].'.txt';
+    $serializedData = serialize($_POST);
+    file_put_contents('archive/'.$_POST['client'].'-'.$_POST['project'].'.txt', $serializedData);
+  }
+
+?>
+
+
+
 <?php
   $items = array(
     array(
@@ -278,6 +296,17 @@
           </tbody>
         </table>
       </div>
+      <?php $files = scandir('archive'); ?>
+      <div class="row"><h5 class="columns small-12">RECOVER DATA</h5></div>
+    
+      <select name="recover">
+        
+        <option value=""></option>
+        <?php for($i=2; $i<count($files); $i++): ?>
+          <option value="<?= $files[$i] ?>"><?= $files[$i] ?></option>
+        <?php endfor; ?>
+        
+      </select>
     </div>
 
     <br />
