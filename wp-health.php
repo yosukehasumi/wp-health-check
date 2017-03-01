@@ -1,5 +1,5 @@
 
-<?php 
+<?php
   if(isset($_POST['recover']) && $_POST['recover'] != ""){
     echo "reading data: ".$_POST['recover'];
     $recoveredData = file_get_contents('archive/'.$_POST['recover']);
@@ -299,15 +299,20 @@
         </table>
       </div>
       <?php $files = scandir('archive'); ?>
+
       <div class="row"><h5 class="columns small-12">RECOVER DATA</h5></div>
-    
+
       <select name="recover">
-        
+
         <option value=""></option>
-        <?php for($i=2; $i<count($files); $i++): ?>
-          <option value="<?= $files[$i] ?>"><?= $files[$i] ?></option>
-        <?php endfor; ?>
-        
+
+        <?php foreach($files as $file) : ?>
+          <?php if($file == '.') continue; ?>
+          <?php if($file == '..') continue; ?>
+          <?php if($file == '.gitignore') continue; ?>
+          <option value="<?= $file ?>"><?= $file ?></option>
+        <?php endforeach; ?>
+
       </select>
     </div>
 
