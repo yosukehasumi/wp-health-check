@@ -17,6 +17,8 @@
 
 
 <?php
+  date_default_timezone_set('America/Vancouver');
+
   $items = array(
     array(
       'label' => 'Core',
@@ -368,4 +370,4 @@
 
 </body>
 </html>
-  
+
